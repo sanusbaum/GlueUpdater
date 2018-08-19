@@ -16,7 +16,6 @@ class DownloadFile : public QObject
 
 signals:
     void finished();
-    void canceled();
     void downloadProgress(qint64 bytesSent, qint64 bytesTotal);
     void error(QNetworkReply::NetworkError error);
     void error(QString error);

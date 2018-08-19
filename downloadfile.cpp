@@ -67,10 +67,6 @@ void DownloadFile::downloadFinished()
 
         emit finished();
     }
-    else
-    {
-        emit canceled();
-    }
 }
 
 void DownloadFile::mdownloadProgress(qint64 bytesReceived, qint64 bytesTotal)

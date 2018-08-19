@@ -26,7 +26,6 @@ public:
 
 private slots:
     void finishedCalled();
-    void canceled();
 
 private:
     Ui::UpdaterDialog *ui;

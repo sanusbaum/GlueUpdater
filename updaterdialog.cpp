@@ -18,7 +18,6 @@ UpdaterDialog::UpdaterDialog(QList<DownloadFile*> downloads, QWidget *parent) :
         DownloadFile* downloadFile = *downloadsIterator;
         connect(downloadFile, SIGNAL(downloadProgress(qint64, qint64)), progressBar, SLOT(downloadProgress(qint64, qint64)));
         connect(downloadFile, SIGNAL(finished()), this, SLOT(finishedCalled()));
-        connect(downloadFile, SIGNAL(canceled()), this, SLOT(canceled()));
         connect(downloadFile, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
         layout->addWidget(progressBar);
         downloadFile->start();
@@ -57,10 +56,4 @@ void UpdaterDialog::finishedCalled()
         QMessageBox::information(this, "Updates Downloaded and Installed!", "Updates were downloaded and installed! Please exit and restart the program to continue.");
         reject();
     }
-}
-
-void UpdaterDialog::canceled()
-{
-    DownloadFile* file = qobject_cast<DownloadFile*>(sender());
-    delete file;
 }
