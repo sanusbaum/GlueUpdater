@@ -98,7 +98,7 @@ void Updater::networkError(QNetworkReply::NetworkError networkError)
 QString Updater::platformIdentifier()
 {
 #if defined Q_OS_WIN
-    return "window";
+    return "windows";
 #elif defined Q_OS_LINUX
     return "linux";
 #elif defined Q_OS_MAC
