@@ -1,4 +1,2 @@
-- add the operation rename, to rename files
-- add the operation mkdir, to create a directory to place files in
 - add the ability to execute a file that was downloaded and installed
 - add a checksum feature
