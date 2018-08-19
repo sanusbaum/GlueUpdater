@@ -74,10 +74,27 @@ void Updater::finishedDownloadingUpdateFile()
                     QFile fileToRemove(jsonUpdateObject.value("file-location").toString());
                     fileToRemove.remove();
                 }
+                else if (jsonUpdateObject.value("operation") == "move")
+                {
+                    QFile fileToMove(jsonUpdateObject.value("file-location").toString());
+                    fileToMove.rename(jsonUpdateObject.value("file-move-location").toString());
+                }
+                else if (jsonUpdateObject.value("operation") == "mkdir")
+                {
+                    QDir().mkdir(jsonUpdateObject.value("directory-location").toString());
+                }
             }
-            UpdaterDialog updaterDialog(downloads);
-            connect(&updaterDialog, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-            updaterDialog.exec();
+
+            if (downloads.size() == 0)
+            {
+                QMessageBox::information(nullptr, "Updates Downloaded and Installed!", "Updates were configured! Please exit and restart the program to continue.");
+            }
+            else
+            {
+                UpdaterDialog updaterDialog(downloads);
+                connect(&updaterDialog, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
+                updaterDialog.exec();
+            }
         }
         else
         {

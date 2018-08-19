@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QMessageBox>
+#include <QDir>
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonDocument>
