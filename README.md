@@ -30,11 +30,33 @@ GlueUpdater parses JSON data to determine what to download for the particular OS
         "download-url": "http://example.com/file2.zip",
         "download-location": "/home/ubuntu/test2.zip",
         "extract-path": "/home/ubuntu/renamed.zip"
+      },
+      {
+        "operation": "move",
+        "file-location": "test.txt",
+        "file-move-location": "test1.txt"
+      },
+      {
+        "operation": "mkdir",
+        "directory-location": "test"
       }
     ]
   }
 }
 ```
+
+The available operations are: "remove", "add", "update", "move", and "mkdir".
+
+  - For "remove" the additional information should be listed in "file-location".
+
+  - For "add" the additional information should be listed in "download-url", "download-location", and "extract-path".
+
+  - For "update" the additional information should be listed in "download-url", "download-location", and "extract-path".
+
+  - For "move" the additional information should be listed in "file-location", and "file-move-location".
+
+  - For "mkdir" the additional information should be listed in "directory-location".
+
 The MainWindow looks as follows:
 
 ![MainWindow](https://raw.githubusercontent.com/sanusbaum/GlueUpdater/master/screenshots/MainWindow.png)
