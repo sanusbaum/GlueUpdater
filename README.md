@@ -39,13 +39,17 @@ GlueUpdater parses JSON data to determine what to download for the particular OS
       {
         "operation": "mkdir",
         "directory-location": "test"
+      },
+      {
+        "operation": "change-log",
+        "change-log": "These are the changes I implemented..."
       }
     ]
   }
 }
 ```
 
-The available operations are: "remove", "add", "update", "move", and "mkdir".
+The available operations are: "remove", "add", "update", "move", "mkdir", and "change-log".
 
   - For "remove" the additional information should be listed in "file-location".
 
@@ -56,6 +60,8 @@ The available operations are: "remove", "add", "update", "move", and "mkdir".
   - For "move" the additional information should be listed in "file-location", and "file-move-location".
 
   - For "mkdir" the additional information should be listed in "directory-location".
+
+  - For "change-log" the additional information should be listed in "change-log"
 
 The MainWindow looks as follows:
 

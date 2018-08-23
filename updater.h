@@ -28,7 +28,6 @@ public:
 
 private slots:
     void finishedDownloadingUpdateFile();
-    void networkError(QNetworkReply::NetworkError networkError);
 
 private:
     DownloadFile* m_downloadUpdateFile;

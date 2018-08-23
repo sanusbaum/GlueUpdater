@@ -44,7 +44,7 @@ void DownloadFile::start()
 
     connect(m_reply, SIGNAL(finished()), this, SLOT(downloadFinished()));
     connect(m_reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(mdownloadProgress(qint64, qint64)));
-    connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(error(QNetworkReply::NetworkError)));
+    connect(m_reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError(QNetworkReply::NetworkError)));
 }
 
 void DownloadFile::stop()
@@ -80,4 +80,9 @@ void DownloadFile::mdownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
     }
 
     emit downloadProgress(bytesReceived, bytesTotal);
+}
+
+void DownloadFile::networkError(QNetworkReply::NetworkError errorNumber)
+{
+    emit error("Network Error: " + QString::number(errorNumber));
 }

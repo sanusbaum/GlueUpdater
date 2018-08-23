@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
+#include <QFile>
 #include <QList>
 #include <QByteArray>
 
@@ -17,7 +18,6 @@ class DownloadFile : public QObject
 signals:
     void finished();
     void downloadProgress(qint64 bytesSent, qint64 bytesTotal);
-    void error(QNetworkReply::NetworkError error);
     void error(QString error);
 
 public:
@@ -30,6 +30,7 @@ public:
 private slots:
     void downloadFinished();
     void mdownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+    void networkError(QNetworkReply::NetworkError error);
 
 private:
     QNetworkAccessManager* m_manager;

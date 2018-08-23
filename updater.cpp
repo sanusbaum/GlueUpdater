@@ -14,7 +14,6 @@ void Updater::checkForUpdates()
     m_downloadUpdateFile = new DownloadFile("http://spencernusbaum.com/updates.php?version=" + m_versionIdentifier, "updates.json");
 
     connect(m_downloadUpdateFile, SIGNAL(finished()), this, SLOT(finishedDownloadingUpdateFile()));
-    connect(m_downloadUpdateFile, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(networkError(QNetworkReply::NetworkError)));
     connect(m_downloadUpdateFile, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
 }
 
@@ -48,7 +47,7 @@ void Updater::finishedDownloadingUpdateFile()
             QJsonArray jsonPlatformArray = jsonUpdates.value(platformIdentifier()).toArray();
 
             QList<DownloadFile*> downloads;
-
+            QString changeLogInfo = "";
             QJsonArray::iterator jsonIterator = jsonPlatformArray.begin();
             for (; jsonIterator != jsonPlatformArray.end(); jsonIterator++)
             {
@@ -83,6 +82,10 @@ void Updater::finishedDownloadingUpdateFile()
                 {
                     QDir().mkdir(jsonUpdateObject.value("directory-location").toString());
                 }
+                else if (jsonUpdateObject.value("operation") == "change-log")
+                {
+                    changeLogInfo = jsonUpdateObject.value("change-log").toString();
+                }
             }
 
             if (downloads.size() == 0)
@@ -95,6 +98,10 @@ void Updater::finishedDownloadingUpdateFile()
                 connect(&updaterDialog, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
                 updaterDialog.exec();
             }
+            if (changeLogInfo != "")
+            {
+                QMessageBox::information(nullptr, "Change Log", changeLogInfo);
+            }
         }
         else
         {
@@ -105,11 +112,6 @@ void Updater::finishedDownloadingUpdateFile()
     {
         emit error("Unable to continue: Could not open updates.json file for reading");
     }
-}
-
-void Updater::networkError(QNetworkReply::NetworkError networkError)
-{
-    emit error("Network error: " + QString::number(networkError));
 }
 
 QString Updater::platformIdentifier()
